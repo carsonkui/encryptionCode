@@ -1,4 +1,5 @@
 from random import randint
+from pathlib import Path 
 def otpGen():
 	length = input('How long is your message? (number) ')
 	name = input('What is the name of your otp? ')
@@ -20,14 +21,17 @@ def menu():
 	a = int(a)
 	return a
 def otpLoader():
-	sheetName = input('What is the name of your otp? ')
-	f = open(sheetName, 'r+')
-	File = f.read()
-	File = File.split()
-	l = []
-	for n in File:
-		l.append(n)
-	return (l)
+	while True:
+		sheetName = input('What is the name of your otp? ')
+		my_file =  Path("./" + sheetName)
+		if my_file.is_file():
+			f = open(sheetName, 'r+')
+			File = f.read()
+			File = File.split()
+			l = []
+			for n in File:
+				l.append(n)
+			return (l)
 def encryptionInput():
 	i = input('What is your message? ')
 	return i
@@ -41,9 +45,16 @@ def decryptionLoader():
 		l.append(n)
 	return (l)
 def fileGen(content):
-	name = input('What will your file be called? ')
-	f = open(name, 'w+')
-	f.write(content)
+	while True:
+		choice = input('Would you like to store it to a file or have it printed? (s/p) ')
+		if choice == 's' :
+			name = input('What will your file be called? ')
+			f = open(name, 'w+')
+			f.write(content)
+			break
+		elif choice == 'p' :
+			print("\n" + content + "\n")
+			break
 def encryption(message, number):
 	a = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 	encryptedMessage = []
